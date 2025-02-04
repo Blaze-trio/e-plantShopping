@@ -9,7 +9,7 @@ function ProductList() {
     const [showPlants, setShowPlants] = useState(false); 
     const [addedToCart, setAddedToCart] = useState({}); 
     const cart = useSelector((state) => state.cart);
-    
+    const cartItems=useSelector(state => state.cart.items);
 
     const plantsArray = [
         {
@@ -233,11 +233,17 @@ function ProductList() {
     alignItems: 'center',
     width: '1100px',
    }
+   const totalItems = () => {
+        return cartItems.reduce((total, item) => total + item.quantity, 0);
+    }
    const styleA={
     color: 'white',
     fontSize: '30px',
     textDecoration: 'none',
    }
+   const alreadyInCart = (itemName) => {
+        return cartItems.some((item) => item.name === itemName);
+    }
    const handleCartClick = (e) => {
     e.preventDefault();
     setShowCart(true); // Set showCart to true when cart icon is clicked
